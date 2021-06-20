@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card } from 'react-native-elements';
 import { Text, ScrollView } from 'react-native';
 

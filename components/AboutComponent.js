@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card, ListItem } from 'react-native-elements';
 import { Text, ScrollView, FlatList } from 'react-native';
 import { PARTNERS } from '../shared/partners';
