@@ -2,15 +2,29 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { CAMPSITES } from '../shared/campsites';
+import { Tile } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
+
+const mapStateToProps = state => {
+    return {
+        campsites: state.campsites
+    };
+};
+
+const renderDirectoryItem = ({ item }) => {
+    return (
+        <Tile
+            title={item.name}
+            caption={item.description}
+            featured
+            onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
+            imageSrc={{ uri: baseUrl + item.image }}
+        />
+    );
+};
 class Directory extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            campsites: CAMPSITES
-        };
-    }
 
     static navigationOptions = {
         title: 'Directory'
@@ -31,7 +45,7 @@ class Directory extends Component {
 
         return (
             <FlatList
-                data={this.state.campsites}
+                data={this.props.campsites}
                 renderItem={renderDirectoryItem}
                 keyExtractor={item => item.id.toString()}
             />
@@ -39,4 +53,4 @@ class Directory extends Component {
     }
 }
 
-export default Directory;
+export default connect(mapStateToProps)(Directory);
