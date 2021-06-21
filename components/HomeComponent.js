@@ -42,13 +42,13 @@ class Home extends Component {
         return (
             <ScrollView>
                 <RenderItem
-                    item={this.props.campsites.filter(campsite => campsite.featured)[0]}
+                    item={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
                 />
                 <RenderItem
-                    item={this.props.promotions.filter(promotion => promotion.featured)[0]}
+                    item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                 />
                 <RenderItem
-                    item={this.props.partners.filter(partner => partner.featured)[0]}
+                    item={this.props.partners.partners.filter(partner => partner.featured)[0]}
                 />
             </ScrollView>
         );
