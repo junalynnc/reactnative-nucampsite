@@ -10,6 +10,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
 
+
 const DirectoryNavigator = createStackNavigator(
     {
         Directory: { screen: Directory },
@@ -83,8 +84,8 @@ const ContactNavigator = createStackNavigator(
 const MainNavigator = createDrawerNavigator(
     {
         Home: { screen: HomeNavigator },
-        About: { screen, AboutNavigator },
-        Contact: { screen, ContactNavtigator },
+        About: { screen: AboutNavigator },
+        Contact: { screen: ContactNavigator },
         Directory: { screen: DirectoryNavigator }
     },
     {

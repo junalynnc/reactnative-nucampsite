@@ -7,7 +7,7 @@ function RenderCampsite({ campsite }) {
     if (campsite) {
         return (
             <Card
-                feauturedTitle={campsite.name}
+                featuredTitle={campsite.name}
                 image={require('./images/react-lake.jpg')}
             >
                 <Text style={{ margin: 10 }}>
