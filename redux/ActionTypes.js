@@ -15,3 +15,5 @@ export const PARTNERS_FAILED = 'PARTNERS_FAILED';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const COMMENT_FAILED = 'COMMENT_FAILED';
+
+export const ADD_FAVORITE = 'ADD_FAVORITE';
