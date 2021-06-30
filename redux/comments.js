@@ -7,7 +7,7 @@ export const comments = (state = { errMess: null, comments: [] }, action) => {
 
         case ActionTypes.ADD_COMMENT:
             let comment = action.payload;
-            comment.id = comments.length;
+            comment.id = state.comments.length;
             return { ...state, comments: state.comments.concat(comment) };
 
         case ActionTypes.COMMENTS_FAILED:

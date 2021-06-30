@@ -138,8 +138,8 @@ class CampsiteInfo extends Component {
 
     render() {
         const campsiteId = this.props.navigation.getParam('campsiteId');
-        const campsite = this.props.campsites.filter(campsite => campsite.id === campsiteId)[0];
-        const comments = this.props.comments.filter(comment => comment.campsiteId === campsiteId);
+        const campsite = this.props.campsites.campsites.filter(campsite => campsite.id === campsiteId)[0];
+        const comments = this.props.comments.comments.filter(comment => comment.campsiteId === campsiteId);
         return (
             <ScrollView>
                 <RenderCampsite campsite={campsite}
@@ -155,7 +155,7 @@ class CampsiteInfo extends Component {
                     <View style={styles.modal}>
                         <Rating
                             showRating
-                            startingValue={this.state.campers}
+                            startingValue={this.state.rating}
                             imageSize={40}
                             onFinishRating={rating => this.setState({ rating: rating })}
                             style={{ paddingVertical: 10 }}
@@ -164,15 +164,15 @@ class CampsiteInfo extends Component {
                             placeholder='Author'
                             leftIcon='user-o'
                             leftIconContainerStyle={{ paddingRight: 10 }}
-                            onChangeText={rating => this.setState({ rating: rating })}
-                            value
+                            onChangeText={author => this.setState({ author: author })}
+                            value={this.state.author}
                         />
                         <Input
                             placeholder='Comment'
                             leftIcon='comment-o'
                             leftIconContainerStyle={{ paddingRight: 10 }}
-                            onChangeText={rating => this.setState({ rating: rating })}
-                            value
+                            onChangeText={text => this.setState({ text: text })}
+                            value={this.state.comment}
                         />
                         <View>
                             <Button
@@ -215,4 +215,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps)(CampsiteInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(CampsiteInfo);
