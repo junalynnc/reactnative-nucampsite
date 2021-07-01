@@ -4,19 +4,19 @@ import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postFavorite, postComment } from "../redux/ActionCreators";
-import { color } from "react-native-reanimated";
-
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
         campsites: state.campsites,
-        comments: state.comments
+        comments: state.comments,
+        favorites: state.favorites
     };
 };
 
 const mapDispatchToProps = {
     postFavorite: (campsiteId) => postFavorite(campsiteId),
-    postComment: (comment) => postComment(comment),
+    postComment: (campsiteId, rating, author, text) => postComment(campsiteId, rating, author, text)
 };
 
 function RenderCampsite(props) {
@@ -25,34 +25,42 @@ function RenderCampsite(props) {
 
     if (campsite) {
         return (
-            <Card
-                featuredTitle={campsite.name}
-                image={{ uri: baseUrl + campsite.image }}
-                onShowModal={() => this.toggleModal()}
+            <Animatable.View
+                animation='fadeInDown'
+                duration={2000}
+                delay={1000}
+                ref={view}
+                {...panResponder.panHandlers}
             >
-                <Text style={{ margin: 10 }}>
-                    {campsite.description}
-                </Text>
-                <View style={styles.cardRow}>
-                    <Icon
-                        name={props.favorite ? 'heart' : 'heart-o'}
-                        type='font-awesome'
-                        color='#f50'
-                        raised
-                        reverse
-                        onPress={() => props.favorite ?
-                            console.log('Already set as a favorite') : props.markFavorite()}
-                    />
-                    <Icon
-                        name='pencil'
-                        type='font-awesome'
-                        color='#5637DD'
-                        raised
-                        reverse
-                        onPress={() => props.onShowModal()}
-                    />
-                </View>
-            </Card>
+                <Card
+                    featuredTitle={campsite.name}
+                    image={{ uri: baseUrl + campsite.image }}
+                    onShowModal={() => this.toggleModal()}
+                >
+                    <Text style={{ margin: 10 }}>
+                        {campsite.description}
+                    </Text>
+                    <View style={styles.cardRow}>
+                        <Icon
+                            name={props.favorite ? 'heart' : 'heart-o'}
+                            type='font-awesome'
+                            color='#f50'
+                            raised
+                            reverse
+                            onPress={() => props.favorite ?
+                                console.log('Already set as a favorite') : props.markFavorite()}
+                        />
+                        <Icon
+                            name={'pencil'}
+                            type='font-awesome'
+                            color='#5637DD'
+                            raised
+                            reverse
+                            onPress={() => props.onShowModal()}
+                        />
+                    </View>
+                </Card>
+            </Animatable.View>
         );
     }
     return <View />;
@@ -147,11 +155,11 @@ class CampsiteInfo extends Component {
                     markFavorite={() => this.markFavorite()}
                 />
                 <RenderComments comments={comments} />
-                <Modal>
+                <Modal
                     animationType={'slide'}
                     transparent={false}
                     visible={this.state.showModal}
-                    onRequestClose={() => this.toggleModal()}
+                    onRequestClose={() => this.toggleModal()}>
                     <View style={styles.modal}>
                         <Rating
                             showRating
