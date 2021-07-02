@@ -26,13 +26,7 @@ function RenderCampsite(props) {
 
     if (campsite) {
         return (
-            <Animatable.View
-                animation='fadeInDown'
-                duration={2000}
-                delay={1000}
-                ref={view}
-                {...panResponder.panHandlers}
-            >
+            <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
                 <Card
                     featuredTitle={campsite.name}
                     image={{ uri: baseUrl + campsite.image }}
@@ -90,13 +84,15 @@ function RenderComments({ comments }) {
     };
 
     return (
-        <Card title='Comments'>
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}
-            />
-        </Card>
+        <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+            <Card title='Comments'>
+                <FlatList
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}
+                />
+            </Card>
+        </Animatable.View>
     );
 }
 
