@@ -85,7 +85,7 @@ class Favorites extends Component {
                 data={this.props.campsites.campsites.filter(
                     campsite => this.props.favorites.includes(campsite.id)
                 )}
-                renderItem={ }
+                renderItem={renderFavoriteItem}
                 keyExtractor={item => item.id.toString()}
             />
         );
