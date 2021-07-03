@@ -151,23 +151,12 @@ function RenderComments({ comments }) {
 
 class CampsiteInfo extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            favorite: false,
-            showModal: false,
-            rating: 5,
-            author: '',
-            text: ''
-        };
-    }
-
     static navigationOptions = {
         title: 'Campsite Information'
     }
 
-    markFavorite() {
-        this.setState({ favorite: true });
+    markFavorite(campsiteId) {
+        this.props.postFavorite(campsiteId);
     }
 
     toggleModal() {
@@ -201,8 +190,8 @@ class CampsiteInfo extends Component {
         return (
             <ScrollView>
                 <RenderCampsite campsite={campsite}
-                    favorite={this.state.favorite}
-                    markFavorite={() => this.markFavorite()}
+                    favorite={this.props.favorites.includes(campsiteId)}
+                    markFavorite={() => this.markFavorite(campsiteId)}
                 />
                 <RenderComments comments={comments} />
                 <Modal
