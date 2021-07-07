@@ -33,7 +33,7 @@ const mapDispatchToProps = {
 function RenderCampsite(props) {
 
     const { campsite } = props;
-    const view = React.useRef();
+    const view = React.createRef();
     const recognizeDrag = ({ dx }) => (dx < -200) ? true : false;
     const recognizeComment = ({ dx }) => (dx > 200 ? true : false);
 
@@ -168,6 +168,17 @@ function RenderComments({ comments }) {
 }
 
 class CampsiteInfo extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            favorite: false,
+            showModal: false,
+            rating: 5,
+            author: "",
+            text: "",
+        };
+    }
 
     static navigationOptions = {
         title: 'Campsite Information'
