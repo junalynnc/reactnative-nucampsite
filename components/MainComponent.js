@@ -22,7 +22,6 @@ import {
     fetchPartners
 } from '../redux/ActionCreators';
 import NetInfo from '@react-native-community/netinfo';
-import * as MediaLibrary from 'expo-media-library';
 
 
 const mapDispatchToProps = {
@@ -377,11 +376,6 @@ class Main extends Component {
             ? Alert.alert('Connection change:', connectionMsg)
             : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
-
-    // MediaLibrary.saveToLibraryAsync() {
-    //     const { uri } = await Camera.takePictureAsync();
-    //     const asset = await MediaLibrary.createAssetAsync(uri);
-    // }
 
     render() {
         return (
