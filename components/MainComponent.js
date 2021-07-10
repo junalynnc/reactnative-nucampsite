@@ -7,7 +7,6 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
-import Constants from 'expo-constants';
 import {
     View, Platform, StyleSheet, Text, ScrollView, Image,
     Alert, ToastAndroid
@@ -22,8 +21,8 @@ import {
     fetchCampsites, fetchComments, fetchPromotions,
     fetchPartners
 } from '../redux/ActionCreators';
-import { baseUrl } from '../shared/baseUrl';
 import NetInfo from '@react-native-community/netinfo';
+import * as MediaLibrary from 'expo-media-library';
 
 
 const mapDispatchToProps = {
@@ -337,10 +336,7 @@ class Main extends Component {
         this.props.fetchPartners();
 
         NetInfo.fetch().then(connectionInfo => {
-            (Platform.OS === 'ios')
-                ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
-                : ToastAndroid.show('Initial Network Connectivity Type: ' +
-                    connectionInfo.type, ToastAndroid.LONG);
+            this.showNetInfo();
         });
 
         this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
@@ -351,6 +347,14 @@ class Main extends Component {
 
     componentWillUnmount() {
         this.unsubscribeNetInfo();
+    }
+
+    showNetInfo = async () => {
+        const connectionInfo = await NetInfo.fetch();
+        (Platform.OS === 'ios')
+            ? Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
+            : ToastAndroid.show('Initial Network Connectivity Type: ' +
+                connectionInfo.type, ToastAndroid.LONG);
     }
 
     handleConnectivityChange = connectionInfo => {
@@ -373,6 +377,11 @@ class Main extends Component {
             ? Alert.alert('Connection change:', connectionMsg)
             : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
+
+    // MediaLibrary.saveToLibraryAsync() {
+    //     const { uri } = await Camera.takePictureAsync();
+    //     const asset = await MediaLibrary.createAssetAsync(uri);
+    // }
 
     render() {
         return (
